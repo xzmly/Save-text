@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+	<div class="container">
+		<ul class="news">
+			<li>123456789</li>
+			<li>321654987</li>
+			<li>abckskkjlk</li>
+		</ul>
+		<button class="change">123456</button>
+	</div>
+<script>
+  
+    $('.change').addEventListener('click', function(){
+      var xhr = new XMLHttpRequest();
+      xhr.open('get', 'http://zhihu2.com:8080/getNews', true);
+      xhr.send();
+      xhr.onreadystatechange = function(){
+      if(xhr.readyState === 4 && xhr.status === 200){
+          appendHtml( JSON.parse(xhr.responseText) )
+      }
+  }
+    window.xhr = xhr
+  })
+    
+    function appendHtml(news){
+        var html = '';
+        for( var i=0; i<news.length; i++){
+            html += '<li>' + news[i] + '</li>';
+    }
+        console.log(html);
+        $('.news').innerHTML = html;
+    }
+
+    function $(id){
+      return document.querySelector(id);
+    }
+</script>
+</body>
+</html>
